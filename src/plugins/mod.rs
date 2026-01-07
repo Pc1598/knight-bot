@@ -31,6 +31,7 @@ mod run;
 mod sauce;
 mod sh;
 mod start;
+mod status;
 mod uid;
 mod urb;
 mod whois;
@@ -65,6 +66,7 @@ enum Command {
     Sauce,
     Sh(String),
     Start,
+    Status,
     Uid,
     Urb(String),
     Whois(String),
@@ -116,6 +118,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/run" | "/run@ThekNIGHT_bot" => Command::Run,
         "/sauce" | "/sauce@ThekNIGHT_bot" => Command::Sauce,
         "/start" | "/start@ThekNIGHT_bot" => Command::Start,
+        "/status" | "/status@ThekNIGHT_bot" => Command::Status,
         "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
         "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
         "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
@@ -148,6 +151,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Sauce => sauce::knightcmd_sauce(client, message).await?,
         Command::Sh(kcmd) => sh::knightcmd_sh(message, kcmd).await?,
         Command::Start => start::knightcmd_start(message).await?,
+        Command::Status => status::knightcmd_status(message).await?,
         Command::Uid => uid::knightcmd_uid(client, message).await?,
         Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
         Command::Whois(site) => whois::knightcmd_whois(message, site).await?,
